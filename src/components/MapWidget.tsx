@@ -8,29 +8,34 @@ import WorldMap from "../assets/topoJson/ne_50m_admin_0_countries.json";
 import Cities from "../assets/topoJson/ne_50m_populated_places_simple.json";
 //import Roads from "../assets/topoJson/ne_10m_roads.json";
 import styled from "@emotion/styled";
+import { FC, useMemo } from "react";
 
-const StyledMap = styled(ComposableMap)`
-  max-width: 1200px;
-  height: 100%;
-`;
-
-import { FC } from "react";
-
-type TAnnotation = {
+export type TAnnotation = {
   /** [latitude, longitude] */
   coordinates: [number, number];
   name: string;
   onClick: () => void;
 };
 
-type TMapWidgetProps = {
+export type TMapWidgetProps = {
   /** [latitude, longitude] */
   startPosition: [number, number];
   zoom: number;
   annotations: TAnnotation[];
+  square?: boolean;
 };
 
 const MapWidget: FC<TMapWidgetProps> = (props) => {
+  const StyledMap = useMemo(
+    () => styled(ComposableMap)`
+      max-width: 1200px;
+      height: 100%;
+      aspect-ratio: ${props.square ? "1" : undefined};
+      border-radius: 5px;
+    `,
+    [props.square],
+  );
+
   return (
     <section style={{ width: "100%" }}>
       <StyledMap
@@ -83,7 +88,7 @@ const MapWidget: FC<TMapWidgetProps> = (props) => {
                   alignmentBaseline="middle"
                   fill="#babfc1"
                   stroke="transparent"
-                  fontSize="10"
+                  fontSize="3rem"
                 >
                   {geo.properties.name}
                 </text>
@@ -96,11 +101,11 @@ const MapWidget: FC<TMapWidgetProps> = (props) => {
           <Annotation
             key={index}
             subject={annotation.coordinates}
-            dx={-30}
-            dy={-30}
+            dx={-100}
+            dy={-100}
             onClick={annotation.onClick}
             connectorProps={{
-              strokeWidth: 2,
+              strokeWidth: "0.5rem",
               stroke: "#576067",
             }}
             style={{
@@ -113,12 +118,18 @@ const MapWidget: FC<TMapWidgetProps> = (props) => {
               alignmentBaseline="middle"
               fill="#0095df"
               stroke="transparent"
-              fontSize="10"
+              fontSize="3rem"
               fontWeight={"bold"}
             >
               {annotation.name}
             </text>
-            <circle r={5} cy={30} cx={30} stroke="#0095df" />
+            <circle
+              r={"1rem"}
+              cy={100}
+              cx={100}
+              stroke="#0095df"
+              fill="#0095df"
+            />
           </Annotation>
         ))}
       </StyledMap>
