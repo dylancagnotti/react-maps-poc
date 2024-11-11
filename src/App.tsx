@@ -10,7 +10,7 @@ function App() {
           {
             coordinates: [49.56261559320028, 29.99923757515128],
             name: "Well",
-            onClick: () => alert("Istanbul"),
+            onClick: () => alert("Well"),
           },
         ]}
         startPosition={[47, 29]}
