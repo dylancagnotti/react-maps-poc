@@ -1,6 +1,7 @@
 import "./App.css";
 import Card from "./components/Card";
 import MapWidget from "./components/MapWidget";
+import ZoomableMap from "./components/ZoomableMap";
 
 function App() {
   return (
@@ -64,7 +65,9 @@ function App() {
           />
         </div>
       </div>
-      <div></div>
+      <div>
+        <ZoomableMap startPosition={[47, 29]} zoom={10} annotations={[]} />
+      </div>
     </article>
   );
 }
