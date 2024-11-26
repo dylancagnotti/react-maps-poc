@@ -3,11 +3,27 @@ import { FC } from "react";
 import MapWidget, { TMapWidgetProps } from "./MapWidget";
 import Tag from "./Tag";
 
+const CardDimensions = {
+  small: {
+    width: "250px",
+    height: "150px",
+  },
+  medium: {
+    width: "410px",
+    height: "230px",
+  },
+  large: {
+    width: "470px",
+    height: "250px",
+  },
+};
+
 type TCardProps = {
   title: string;
   description: string;
   tags: string[];
   mapdata?: TMapWidgetProps;
+  size?: keyof typeof CardDimensions;
 };
 
 /**
@@ -19,9 +35,11 @@ type TCardProps = {
  * max-h: 250px
  */
 
-const StyledCard = styled.article`
-  width: 470px;
-  height: 250px;
+const StyledCard = styled("article", {
+  shouldForwardProp: (prop) => prop !== "$size",
+})<{ $size?: keyof typeof CardDimensions }>`
+  width: ${({ $size }) => CardDimensions[$size ?? "medium"].width};
+  height: ${({ $size }) => CardDimensions[$size ?? "medium"].height};
   border: 1px solid #435a66;
   border-radius: 5px;
   background: linear-gradient(135deg, #213a47, #435a66);
@@ -73,35 +91,50 @@ const StyledSelect = styled.select`
   color: #3d515c;
 `;
 
-const Card: FC<TCardProps> = (props) => {
+const Card: FC<TCardProps> = ({
+  description,
+  tags,
+  title,
+  mapdata,
+  size = "medium",
+}) => {
   return (
-    <StyledCard>
+    <StyledCard $size={size}>
       <section
         style={{
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-start",
           gap: "0.5rem",
-          height: "100%",
         }}
       >
-        <h3>{props.title}</h3>
+        <h3>{title}</h3>
         <TagsWrapper>
-          {props.tags.map((tagText, idx) => (
+          {tags.map((tagText, idx) => (
             <Tag key={idx} text={tagText} />
           ))}
         </TagsWrapper>
-        <StyledDescription>{props.description}</StyledDescription>
-        <StyledAdditionalData>Rig 1, Rig 2, Rig 3, Rig 4</StyledAdditionalData>
-        <StyledSelect
-          style={{
-            marginTop: "auto",
-          }}
-        >
-          <option>GHG</option>
-        </StyledSelect>
+        <StyledDescription>{description}</StyledDescription>
+        {size !== "small" && (
+          <>
+            <StyledAdditionalData>
+              Rig 1, Rig 2, Rig 3, Rig 4
+            </StyledAdditionalData>
+            <StyledSelect
+              style={{
+                marginTop: "auto",
+              }}
+            >
+              <option>GHG</option>
+            </StyledSelect>
+          </>
+        )}
       </section>
-      {props.mapdata !== undefined && <MapWidget {...props.mapdata} square />}
+      {mapdata !== undefined && size !== "small" && (
+        <div style={{ height: "100%" }}>
+          <MapWidget {...mapdata} square />
+        </div>
+      )}
     </StyledCard>
   );
 };

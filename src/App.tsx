@@ -16,6 +16,7 @@ function App() {
           title="Custom Name"
           tags={["well-1", "well-2", "well-3"]}
           description="Wells that I need to see everyday!"
+          size="large"
           mapdata={{
             annotations: [
               {
@@ -38,7 +39,7 @@ function App() {
             zoom: 15,
           }}
         />
-        <div style={{ width: "500px" }}>
+        <div style={{ width: "200px" }}>
           <MapWidget
             annotations={[
               {
@@ -63,6 +64,7 @@ function App() {
           />
         </div>
       </div>
+      <div></div>
     </article>
   );
 }
