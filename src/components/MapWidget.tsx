@@ -51,7 +51,8 @@ const MapWidget: FC<TMapWidgetProps> = (props) => {
                 key={geo.rsmKey}
                 geography={geo}
                 fill="#2e3941"
-                stroke="#576067"
+                stroke="#d1d1d1"
+                strokeWidth={"0.1rem"}
               />
             ))
           }
