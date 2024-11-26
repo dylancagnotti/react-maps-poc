@@ -1,30 +1,8 @@
 import styled from "@emotion/styled";
 import { FC } from "react";
-import MapWidget, { TMapWidgetProps } from "./MapWidget";
+import MapWidget from "./MapWidget";
 import Tag from "./Tag";
-
-const CardDimensions = {
-  small: {
-    width: "250px",
-    height: "150px",
-  },
-  medium: {
-    width: "410px",
-    height: "230px",
-  },
-  large: {
-    width: "470px",
-    height: "250px",
-  },
-};
-
-type TCardProps = {
-  title: string;
-  description: string;
-  tags: string[];
-  mapdata?: TMapWidgetProps;
-  size?: keyof typeof CardDimensions;
-};
+import { CardDimensions, TCardProps } from "../interfaces/Card";
 
 /**
  * COLORS
