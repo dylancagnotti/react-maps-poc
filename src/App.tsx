@@ -1,7 +1,6 @@
 import "./App.css";
 import Card from "./components/Card";
 import MapWidget from "./components/MapWidget";
-import ZoomableMap from "./components/ZoomableMap";
 
 function App() {
   return (
@@ -37,36 +36,26 @@ function App() {
               },
             ],
             startPosition: [48, 29.5],
-            zoom: 15,
+            zoom: 100,
           }}
         />
         <div style={{ width: "200px" }}>
           <MapWidget
-            annotations={[
-              {
-                coordinates: [49.56261559320028, 29.99923757515128],
-                name: "Well 1",
-                onClick: () => alert("Well 1"),
-              },
-              {
-                coordinates: [49.56261559320028, 29.29923757515128],
-                name: "Well 2",
-                onClick: () => alert("Well 2"),
-              },
-              {
-                coordinates: [49.26261559320028, 29.10923757515128],
-                name: "Well 3",
-                onClick: () => alert("Well 3"),
-              },
-            ]}
+            annotations={[]}
             startPosition={[48, 29.5]}
-            zoom={15}
+            zoom={100}
             square
           />
         </div>
       </div>
       <div>
-        <ZoomableMap startPosition={[47, 29]} zoom={10} annotations={[]} />
+        <MapWidget
+          startPosition={[47, 29]}
+          zoom={25}
+          annotations={[]}
+          enableDrag
+          enableZoom
+        />
       </div>
     </article>
   );

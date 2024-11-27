@@ -1,4 +1,4 @@
-import { TMapWidgetProps } from "../components/MapWidget";
+import { TMapWidgetProps } from "../components/MapWidgetOld";
 export const CardDimensions = {
   small: {
     width: "250px",
