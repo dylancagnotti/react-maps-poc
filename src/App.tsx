@@ -48,7 +48,7 @@ function App() {
           />
         </div>
       </div>
-      <div>
+      <div style={{ width: "1000px" }}>
         <MapWidget
           startPosition={[47, 29]}
           zoom={25}

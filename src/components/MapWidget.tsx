@@ -1,28 +1,18 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Annotation,
   ComposableMap,
   Geographies,
   Geography,
   ZoomableGroup,
-  useZoomPan,
 } from "react-simple-maps";
 import WorldMap100 from "../assets/topoJson/countries-110m.json";
 import WorldMap50 from "../assets/topoJson/ne_50m_admin_0_countries.json";
 import Cities50 from "../assets/topoJson/ne_50m_populated_places_simple.json";
-import WorldMap10 from "../assets/topoJson/ne_10m_admin_0_countries.json";
 import Cities10 from "../assets/topoJson/ne_10m_populated_places_simple.json";
 import Regions from "../assets/topoJson/ne_10m_admin_1_states_provinces_lines.json";
 //import Roads from "../assets/topoJson/ne_10m_roads.json";
 import styled from "@emotion/styled";
-import React, {
-  Children,
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { FC, useMemo, useState } from "react";
 
 const clamp = (num: number, min: number, max: number) =>
   Math.min(Math.max(num, min), max);
@@ -78,17 +68,22 @@ const MapWidget: FC<TMapWidgetProps> = (props) => {
   }, [position]);
 
   const sourceCities = useMemo(() => {
-    //if (position.zoom > 15) {
-    //  return Cities10;
-    //} else {
-    //  return Cities50;
-    //}
+    if (position.zoom > 15) {
+      return Cities10;
+    } else {
+      return Cities50;
+    }
 
     return Cities50;
   }, [position]);
 
   return (
-    <section style={{ width: "100%" }}>
+    <section
+      style={{
+        width: "100%",
+        pointerEvents: props.enableDrag ? "auto" : "none",
+      }}
+    >
       <StyledMap
       /*projectionConfig={{
           center: props.startPosition,
